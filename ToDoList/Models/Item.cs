@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System;
 
 namespace ToDoList.Models
 {
@@ -9,5 +10,25 @@ namespace ToDoList.Models
         [Key]
         public int ItemId { get; set; }
         public string Description { get; set; }
-    }
+    
+
+        public override bool Equals(System.Object otherItem)
+        {
+            if (!(otherItem is Item))
+            {
+                return false;
+            }
+            else
+            {
+                Item newItem = (Item)otherItem;
+                return this.ItemId.Equals(newItem.ItemId);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return this.ItemId.GetHashCode();
+        }
+
+     }
 }
